@@ -65,3 +65,37 @@
          result (count-returns-to-zero-2 steps)]
      {:lines-read (count lines)
       :result result})))
+
+(defn count-returns-to-zero-2-reduce
+  "Part 2 variant mimicking Day01TwoReduce: reduce over wrapped step records."
+  [steps]
+  (let [modulus 100]
+    (:reached0
+     (reduce (fn [{:keys [position reached0]} next-dial]
+               (let [full-dials (Math/abs (quot next-dial modulus))
+                     step-rem (rem next-dial modulus)
+                     mod-plus-dial (+ position step-rem)
+                     crossed? (and (not (zero? position))
+                                   (or (neg? mod-plus-dial)
+                                       (> mod-plus-dial modulus)))
+                     position' (mod (+ position next-dial) modulus)
+                     hits? (zero? position')]
+                 {:position position'
+                  :reached0 (-> reached0
+                                (+ full-dials)
+                                (cond-> crossed? inc)
+                                (cond-> hits? inc))}))
+             {:position 50
+              :reached0 0}
+             steps))))
+
+(defn solve-2-reduce
+  "Part 2 using the reduce-style implementation."
+  ([]
+   (solve-2-reduce "../inputs/day01.txt"))
+  ([path]
+   (let [lines (->> path slurp str/split-lines (remove str/blank?))
+         steps (map parse-step lines)
+         result (count-returns-to-zero-2-reduce steps)]
+     {:lines-read (count lines)
+      :result result})))
