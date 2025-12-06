@@ -28,20 +28,18 @@
     (:reached0
      (reduce (fn [{:keys [dial reached0]} step]
                (let [full-dials (Math/abs (quot step modulus))
-                     reached0-full (+ reached0 full-dials)
                      step-rem (rem step modulus)
                      mod-plus-dial (+ dial step-rem)
-                     reached0-cross (if (and (not (zero? dial))
-                                              (or (neg? mod-plus-dial)
-                                                  (> mod-plus-dial modulus)))
-                                      (inc reached0-full)
-                                      reached0-full)
-                     dial (mod (+ dial step) modulus)
-                     reached0-final (if (zero? dial)
-                                      (inc reached0-cross)
-                                      reached0-cross)]
-                 {:dial dial
-                  :reached0 reached0-final}))
+                     crossed? (and (not (zero? dial))
+                                   (or (neg? mod-plus-dial)
+                                       (> mod-plus-dial modulus)))
+                     dial' (mod (+ dial step) modulus)
+                     hits? (zero? dial')]
+                 {:dial dial'
+                  :reached0 (-> reached0
+                                (+ full-dials)
+                                (cond-> crossed? inc)
+                                (cond-> hits? inc))}))
              {:dial 50
               :reached0 0}
              steps))))
