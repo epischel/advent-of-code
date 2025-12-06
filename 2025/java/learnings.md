@@ -57,3 +57,8 @@ get a "off-by-one" error.
 
 in `hasPaperRoll` I return an int (actual 1 or 0) instead of boolean because this can
 directly used in summing the accessible paper rolls
+
+### Test first
+
+I now routinely use the example to test my implementation before submitting my result.
+On day 1 and 2 I felt lucky but often got burned.

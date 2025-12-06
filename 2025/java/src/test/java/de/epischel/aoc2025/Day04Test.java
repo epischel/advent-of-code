@@ -7,6 +7,20 @@ public class Day04Test {
 
     @Test
     void testExampleOne() {
+        char[][] area = getChars();
+
+        int actual = Day04One.calcNumberAccessiblePaperRolls(area);
+        Assertions.assertEquals(13, actual);
+    }
+
+    @Test
+    void testExampleTwo() {
+        char[][] area = getChars();
+        int actual = Day04Two.calcNumberRemovablePaperRolls(area);
+        Assertions.assertEquals(43, actual);
+    }
+
+    private static char[][] getChars() {
         String lines = "..@@.@@@@.\n" +
                 "@@@.@.@.@@\n" +
                 "@@@@@.@.@@\n" +
@@ -18,13 +32,10 @@ public class Day04Test {
                 ".@@@@@@@@.\n" +
                 "@.@.@@@.@.";
         String[] split = lines.split("\\n");
-        IO.println(split.length);
         char[][] area = new char[split.length][split[0].length()];
         for (int i = 0; i < split.length; i++) {
             area[i] = split[i].toCharArray();
         }
-
-        int actual = Day04One.calcNumberAccessiblePaperRolls(area);
-        Assertions.assertEquals(13, actual);
+        return area;
     }
 }
