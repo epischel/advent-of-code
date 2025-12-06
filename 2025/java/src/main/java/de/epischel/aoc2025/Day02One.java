@@ -1,12 +1,11 @@
 package de.epischel.aoc2025;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.LongStream;
 
 public class Day02One {
 
@@ -19,21 +18,15 @@ public class Day02One {
     }
 
     static long calculateSum(List<String> lines) {
-        final List<Range> ranges = lines.stream()
+        return lines.stream()
                 .flatMap(line-> Arrays.stream(line.split(",")))
-                .map(r ->
+                .map(r1 ->
                         new Range(
-                                Long.parseLong(r.substring(0,r.indexOf('-'))),
-                                Long.parseLong(r.substring(r.indexOf('-')+1))))
-                .toList();
-        IO.println("got "+ranges.size()+" ranges");
-        long sum = 0;
-        for (Range range : ranges) {
-            for (long i = range.min; i <= range.max; i++) {
-                if (isInvalidId(i)) sum += i;
-            }
-        }
-        return sum;
+                                Long.parseLong(r1.substring(0, r1.indexOf('-'))),
+                                Long.parseLong(r1.substring(r1.indexOf('-')+1))))
+                .flatMapToLong(r -> LongStream.rangeClosed(r.min, r.max))
+                .filter(Day02One::isInvalidId)
+                .reduce(0L, Long::sum);
     }
 
     static boolean isInvalidId(long number) {
@@ -43,7 +36,6 @@ public class Day02One {
         }
         var first = asString.substring(0, asString.length()/2);
         var second = asString.substring(asString.length()/2);
-        //IO.println(first + " " + second);
         boolean result = first.compareTo(second) == 0;
         if (result) {
             IO.println("invalid id "+number);
