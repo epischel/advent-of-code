@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "day01": "node src/index.js ../inputs/day01.txt",
-    "day02": "node src/day02.js ../inputs/day02.txt"
+    "day02": "node src/day02.js ../inputs/day02.txt",
+    "day02:part2": "node src/day02Two.js ../inputs/day02.txt"
   },
   "engines": {
     "node": ">=18"

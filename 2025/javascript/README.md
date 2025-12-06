@@ -10,6 +10,7 @@
 - `src/index.js` is the entry point; it loads the input, runs both parts, and prints results.
 - Inputs live one level up in `../inputs`, shared across languages.
 - `src/day02.js` mirrors the Java `Day02One` solution and can be run with `npm run day02`.
+- `src/day02Two.js` mirrors the Java `Day02Two` solution (repeated substring check) and can be run with `npm run day02:part2`.
 
 ## Day 01 notes
 - Input lines like `L10`/`R5` describe turning a dial left/right by that amount.

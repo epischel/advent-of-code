@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "..");
 const defaultInputPath = path.resolve(projectRoot, "../inputs/day02.txt");
 
-const parseRange = (token) => {
+export const parseRange = (token) => {
   const [minText, maxText] = token.split("-");
   const min = Number(minText);
   const max = Number(maxText);
