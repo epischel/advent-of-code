@@ -50,3 +50,10 @@ When I started programming, famous "off-by-one" errors were common because
 working with arrays and indices were common. Nowadays we often work with streams
 and don't use indices at all. Back to working with arrays I took care to not
 get a "off-by-one" error.
+
+## Day 4
+
+### ints instead of booleans
+
+in `hasPaperRoll` I return an int (actual 1 or 0) instead of boolean because this can
+directly used in summing the accessible paper rolls
